@@ -1,0 +1,408 @@
+/*----------------------------------
+写了将近5天，学会了如何调控函数之间的调用
+还要把语言写的更简练一点
+---------------------------------*/
+#include<stdio.h>
+
+struct ID{
+    int id;     //表露身份 
+    char iid;  //实际身份 
+    int p1, p2;
+    int life;
+    char card[100000];
+    int kill_time;
+}man[15];
+/*
+更改判断条件
+
+有无懈可击就用
+
+被动万箭齐发  类反猪
+
+表明身份才可以用无懈可击    31行增加参数  m，n。
+
+*/
+void delete_card(int m)  //ok
+{
+	int i;
+	for( i = 0; i < man[m].p2; i++)	
+		man[m].card[i] = ' ';
+	man[m].kill_time = 1;
+	return;
+}
+
+char all_card[10000];      
+int MP = 1,FP = 0,end = 0,sum_j,numF_j = 0,num_card = 0,numZ_j = 0,n_card = 0;
+int people;
+
+int if_end(){          //ok
+    if(MP==0 || FP == 0)
+        return 1;
+    else return 0;
+}
+
+int next(int x){       //ok
+    int y = x + 1;
+    if(y == people + 1)
+        y = 1;
+    while(man[y].life==0){
+        y++;
+        if(y == people + 1)
+          y = 1;
+    }
+    return y;
+}
+
+int if_fight(int m, int n){     //ok 
+    int flag = 0;
+    if((man[m].iid=='F' && (man[n].iid == 'M'||man[n].id == 2))){
+        flag = 1;
+    }
+    else if(man[m].iid == 'Z' && man[n].id == -2){
+        flag = 1;
+    }
+    else if(man[m].iid == 'M' && (man[n].id == -2 || man[n].id == -1)){
+        flag = 1;
+    }
+    return flag;
+}
+
+void take_card(int m,int time){         //ok
+    for( int i = 0; i < time; i++){
+        if(n_card == num_card)
+            n_card--;
+        if(n_card < num_card){
+        	 man[m].card[ man[m].p2++ ] = all_card[ n_card++ ];
+
+		}
+        if(man[m].card[ man[m].p2 - 1 ] == 'J'){
+            if(man[m].iid == 'F')
+                numF_j++;
+            else numZ_j++;
+        }
+    }
+}
+
+void death(int m, int n){           //ok
+	int i;
+	for( i = 0; i < man[n].p2; i++){
+		if(man[n].card[i] == 'P'){
+			man[n].life++;
+			man[n].card[i] = ' ';
+			return;
+		}
+	}			//没有桃则gg了
+	delete_card(n);
+    if(man[n].iid == 'M'){
+        MP--;
+        end = 1;
+        return;
+    }
+    else if(man[m].iid == 'M' && man[n].iid == 'Z')
+        delete_card(m);
+    else if(man[n].iid == 'F'){
+        FP--;
+	    if(FP == 0){
+	        end = 1;
+	        return;
+		}
+		if(man[m].life > 0)     //自己杀自己不能拿牌 
+	    	take_card(m,3);
+	}
+    else return;
+}
+
+//ok
+int kill(int m,int n,char need){       //m 对 n   n需要的牌
+                                        // return 0 则死去；
+    int i,flag = 1;
+    int K_num = 0;
+    if(need == 'D')   
+        for( i = man[n].p1; i < man[n].p2; i++){   //出闪
+            if(man[n].card[i] == 'D'){
+                man[n].card[i] = ' ';
+                return 1;
+            }
+        }
+    if(need == 'K')
+        for( i = man[n].p1; i < man[n].p2; i++){   //出杀
+            if(man[n].card[i] == 'K'){
+                man[n].card[i] = ' ';
+                return 1;
+            }
+        }
+    if(need == 'J'){          //会出来不会进入掉血模式
+        for( i = man[n].p1; i < man[n].p2; i++){   //无懈可击
+            if(man[n].card[i] == 'J'){
+                man[n].card[i] = ' ';
+                if(man[n].iid == 'F')   numF_j--;
+                else numZ_j--;
+                return 1;
+            }
+        }
+        return 0;
+    }
+    man[n].life--;
+    if((man[n].life) <= 0){  //如果<= 0； 
+        death(m,n);
+		if( if_end() == 1 ){
+        end = 1;
+        return -1;
+        }
+        return 0;
+    }
+    return 0;
+}
+
+void fight_j(int m){   //改成m 打  n  从n判断起  ing
+    int temp_m = m;          
+    m = next(m);     
+    while (m != temp_m){
+        if(if_fight(m,temp_m) ==1 && kill( m, m, 'J') == 1 ){
+        	man[m].id = man[temp_m].id * -1;
+        	fight_j(m);
+        	break;
+		}
+        m = next(m);
+    }
+}
+
+int if_help(int m,int n){     
+    int flag = 0;
+    if((man[m].iid=='Z' || man[m].iid =='M') && man[n].id == 2){
+        flag = 1;
+    }
+    else if(man[m].iid == 'F' && man[n].id == -2){
+        flag = 1;
+    }
+    return flag;
+}
+
+int find_j(int m,int n){        //m 打 n temp_m是要保护的人      ing
+    if((man[n].id == 2 || man[n].id == -2)){   //表明身份 
+	    sum_j = numF_j + numZ_j;
+		if(if_help(m,n) == 1 && kill(m,m,'J') == 1){
+			man[m].id = man[n].id;
+			fight_j(m);
+			if((sum_j-(numF_j + numZ_j))%2 == 1)
+	    		return 1;
+	    	else return 0;
+		}
+	    int t_m = m;       //用来临时做坐标 
+	    m = next(m);	 //循环回来判断
+	    while(m != t_m){
+	        if(if_help(m,n) && kill(m,m,'J') == 1){  //身份一样且能出J
+	            man[m].id = man[n].id;
+	            fight_j(m);
+	            break;
+	        }
+	        m = next(m);
+	    }
+	    if((sum_j-(numF_j + numZ_j))%2 == 1)
+			return 1;
+		else return 0;
+	}
+	else return 0;
+}
+
+void F(int m,int n){
+    int flag = 0;
+    if( man[n].id != -1)
+    	man[m].id = man[n].id*-1;
+    if(find_j(m,n) == 1)
+    	return;
+    else{
+    	if(man[n].id == -1){
+    	man[n].life--;
+    	if(man[n].life<=0)
+	    	death(m,n);
+	    	if(end == 1)
+	    		return;
+		}
+		else{
+	    	if(flag == 0)
+	        while(kill(m,n,'K') == 1 && kill(n,m,'K') == 1){
+	        	if(end == 1)
+	        		return;
+			}
+		}
+	}
+}
+
+
+void play_WN(int m,char need){  //锦囊牌
+    int flag_m = m;
+    int flag = 0;
+    int temp = 1;
+    m = next(m);
+    while( m != flag_m){
+        flag = 0; 
+        if(man[m].id == 2 || man[m].id == -2)
+            flag = find_j(flag_m,m);
+        if(flag == 0){
+        	temp = kill(flag_m,m,need);
+        	if(man[m].iid == 'M' && temp == 0 && man[flag_m].id == 0)
+                man[flag_m].id = -1;
+		}
+        if(end == 1)
+            return;
+         m = next(m);
+    }
+}
+
+void play_card(int m,int n){
+    int i;
+    int K_num = 0;
+    for( i = man[m].p1; i < man[m].p2; i++){
+        switch(man[m].card[i]){
+            case ' ': break;
+            case 'W': man[m].card[i] = ' '; i = man[m].p1-1; play_WN(m,'D'); if(end == 1) return; break;
+            case 'N': man[m].card[i] = ' '; i = man[m].p1-1; play_WN(m,'K'); if(end == 1) return; break;
+            case 'Z': man[m].card[i] = ' '; i = man[m].p1-1; man[m].kill_time = 99999; break;
+			case 'P': {
+            	if(man[m].life < 4){
+            		man[m].card[i] = ' ';
+            		man[m].life++;
+            		i = man[m].p1-1;
+				}
+				break;
+			}
+			
+            case 'K': {    //在这里给 表明立场 
+				if( man[m].kill_time == 1&& K_num == 1)
+                    break;
+                else if(if_fight(m,n) == 1){
+                    K_num++;
+                    if(man[m].iid != 'M')
+                    	man[m].id = man[n].id * -1;
+                    man[m].card[i] = ' ';
+                    kill(m,n,'D');
+					i = man[m].p1-1;
+                    if(end == 1)
+                        return;
+                    break;
+                }
+                else break;
+            };
+            case 'F':{   //F（）内表明立场 
+                if(man[m].iid == 'F'){    
+                    man[m].card[i] = ' ';
+					i = man[m].p1-1;
+					F(m,1);
+                }
+                else{
+                    int temp_m = m,tm = m;
+                    tm = next(tm);
+                    while(tm != temp_m){
+                        if(if_fight(temp_m,tm) == 1){               	
+                        	man[temp_m].card[i] = ' ';
+							i = man[m].p1-1;
+                            F(temp_m,tm);
+                            break;
+                        }
+                        tm = next(tm);
+                    }
+                }
+                if(end == 1)
+                    return;
+                break;
+            }
+        }
+    }
+}
+
+/*void play(){   //打斗记录 
+	int i,j;
+	for( i = 1; i <= people; i++){
+		printf("%d %c %d %d   ",i,man[i].iid,man[i].id,man[i].life);
+        int temp_flag = 0;
+        if(man[i].life <= 0)
+            printf("DEAD");
+        else for( j = man[i].p1; j < man[i].p2; j++){
+            if(man[i].card[j]!=' '){
+                temp_flag++;
+                if(temp_flag == 1)
+                    printf("%c",man[i].card[j]);
+                else     printf(" %c",man[i].card[j]);
+            }
+        }
+        printf("\n");
+    }	
+} */
+
+int main(){
+    int i, j , k,kill;
+    char temp[3];
+    scanf("%d %d", &people, &num_card);
+    for( i = 1; i <= people; i++){     //初始化
+        scanf("%s ",temp);
+        if(temp[0] == 'F')
+            FP++;
+        man[i].iid = temp[0];
+        for( j = 0; j < 4; j++){
+            scanf("%c ", &man[i].card[j]);
+            /*if(man[i].card[j] == 'Z'){
+            	for(k = 0; k < j; k++)
+            		if(man[i].card[k] == 'Z')
+            			man[i].card[k] = ' ';
+            man[i].kill_time = 99999;
+            }*/
+            if(man[i].card[j] == 'J'){
+                if(man[i].iid == 'F' )
+                numF_j++;
+                if(man[i].iid == 'M'||man[i].iid == 'Z')
+                numZ_j++;
+            }
+        }
+        man[i].p1 = 0;
+        man[i].p2 = 4;
+        man[i].life = 4;
+        man[i].kill_time = 1;
+    }
+    man[1].id = 2;
+    for( i = 0; i < num_card; i++){    //初始化牌
+        scanf("%c",&all_card[i]);
+        getchar();
+    }
+    i = 0;
+    while(FP!=0&&MP!=0){
+        i = next(i);
+        if(man[i].life){               //摸牌
+            take_card(i,2);
+        }
+        /*printf("%d\n",i);
+        play();             //显示打斗 */ 
+        j = next(i);                //判断下一个人
+        play_card(i,j);                //打牌 顺便 判断能杀多少次	             
+	}
+    if(FP == 0)                     //最后输出战绩。
+        printf("MP\n");
+    if(MP == 0)
+        printf("FP\n");
+    for( i = 1; i <= people; i++){
+        int temp_flag = 0;
+        if(man[i].life <= 0)
+            printf("DEAD");
+        else for( j = man[i].p1; j < man[i].p2; j++){
+            if(man[i].card[j]!=' '){
+                temp_flag++;
+                if(temp_flag == 1)
+                    printf("%c",man[i].card[j]);
+                else     printf(" %c",man[i].card[j]);
+            }
+        }
+        printf("\n");
+    }
+    return 0;
+}
+/*
+3 4 
+MP J J K N 
+ZP J D K W 
+FP P N P K 
+J J K W 
+
+MP
+K
+K
+DEAD*/
