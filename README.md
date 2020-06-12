@@ -1,4 +1,6 @@
 # C-game
+## 这里是2019大一上写的C程序集合
+## 传送门：[2020大一下C语言程序集合](https://github.com/404name/winter)
 
 # C语言小游戏
 
