@@ -6,45 +6,16 @@
 
 # C语言小游戏
 
-## · |10.24|    一、<u>中国象棋&&五子棋</u>       
-
->  -（学C第一个完整的作品）   |纯文本
-
-## · |11.05|    二、<u>汉诺塔演示程序</u>  
-
-> -（动态构建汉诺塔递归过程）  |纯文本
-
-## · |11.10|    三、<u>双人格斗小游戏</u>     
-
->  -（知乎看完某超级厉害老师的专栏回来自己仿写的多线程+多操控游戏）|纯文本
-
-## · |11.15|    四、<u>OJ题：猪国杀</u>   
-
-> -（工作室的附加周任务,写完就对三国杀过敏了） |纯文本
-
-## · |11.25|    五、<u>英雄联盟英雄查询系统</u> 
-
-> -（给朋友写的课设，嘿嘿，第一次写信息管理界面）|纯文本
-
-## · |11.30|    六、<u>英雄联盟英雄查询系统plus</u>    
-
-> -（改造升级,加入动态加载,改用指针读取保存文本）|纯txt源码
-
-## · |01.24|    七、<u>掘地求升</u> 
-
-> -（寒假答辩作品之一，也是寒假计划的其中之一,用C写一个大型游戏和一个[大型程序](https://github.com/404name/winter/tree/master/%E6%A8%A1%E6%8B%9F%E7%AC%94%E8%AE%B0%E6%9C%AC)）|纯txt源码
-
-[![img](https://i.loli.net/2019/10/25/M6iove2wS4kczFD.png)]
-
-[![img](https://i.loli.net/2019/10/18/LsOVJZ8NCftzFK2.png)](https://sm.ms/image/LsOVJZ8NCftzFK2)
-
-[![img](https://i.loli.net/2019/10/25/mQhWIc1N9kSy5KA.png)](https://sm.ms/image/mQhWIc1N9kSy5KA)[![img](https://i.loli.net/2020/01/10/NPjQBerv71COi3T.png)](https://sm.ms/image/NPjQBerv71COi3T)![img](https://img2018.cnblogs.com/common/1920254/202001/1920254-20200111113128394-116544586.png)
-
-![img](https://i.loli.net/2020/01/26/prRCmyBHNFPLzoJ.png)
-
-![img](https://i.loli.net/2020/01/26/pBZg1VorUkGcbXe.png)
-
-[![img](https://i.loli.net/2020/01/26/o3ZrLIDv8WOx6cR.png)](https://sm.ms/image/o3ZrLIDv8WOx6cR)
-
+| 2020上半年项目         | 项目内容                                                     | 演示效果 |
+| ---------------------- | ------------------------------------------------------------ | -------- |
+|[9.20]走迷宫| 从此踏上了一条漫长的字符画肝游戏之路  | ![在这里插入图片描述](https://img-blog.csdnimg.cn/202012141124124.png#pic_center)         
+|[10.07]五子棋 | 第一个模仿走迷宫按照自己思路完整写出来的程序  |     ![在这里插入图片描述](https://img-blog.csdnimg.cn/20201214110013601.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTU5MDg3Mg==,size_16,color_FFFFFF,t_70)     |
+|[10.21]中国象棋 | 写完五子棋就想写点复杂的系统，这个也是暴力把所有规则写定然后还要判断  |     ![在这里插入图片描述](https://img-blog.csdnimg.cn/20201214110013565.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTU5MDg3Mg==,size_16,color_FFFFFF,t_70)     后面看见其他大佬设计的界面![在这里插入图片描述](https://img-blog.csdnimg.cn/20201214112655970.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTU5MDg3Mg==,size_16,color_FFFFFF,t_70#pic_center)|
+|[10.24]中国象棋&&五子棋界面整合  | 锻炼了一下图书管理系统，尝试做出第一个菜单界面，为后面的一些动态界面做出基础  |     ![在这里插入图片描述](https://img-blog.csdnimg.cn/2020121411113060.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTU5MDg3Mg==,size_16,color_FFFFFF,t_70#pic_center)     |
+|[11.05]汉诺塔演示程序  | 感觉是我大一上写的最智能的代码了。哈哈 |  ![在这里插入图片描述](https://img-blog.csdnimg.cn/20201214110013433.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTU5MDg3Mg==,size_16,color_FFFFFF,t_70)        |
+| [11.10] 双人格斗小游戏   | 知乎学了了下多线程，了解了可以自动更新+人工更新  |![在这里插入图片描述](https://img-blog.csdnimg.cn/20201214110013537.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTU5MDg3Mg==,size_16,color_FFFFFF,t_70)          |
+| [11.15] OJ题：猪国杀  | 大一上挑战的最难模拟题，写了两三天，终于写出来了   [题目链接](https://www.luogu.com.cn/problem/P2482)   题目长到怀疑人身|     ![在这里插入图片描述](https://img-blog.csdnimg.cn/20201214111409747.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTU5MDg3Mg==,size_16,color_FFFFFF,t_70#pic_center)
+|[11.30]英雄联盟英雄查询系统plus | 第一次手动爬官网信息，才导致了后面学习爬虫，现在想起来才知道python 和js的香   |     ![在这里插入图片描述](https://img-blog.csdnimg.cn/2020102720352099.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTU5MDg3Mg==,size_16,color_FFFFFF,t_70#pic_center#pic_center)![在这里插入图片描述](https://img-blog.csdnimg.cn/20201027203315466.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTU5MDg3Mg==,size_16,color_FFFFFF,t_70#pic_center#pic_center)
+ 
 
 这些都是从走迷宫写起的，后面内容就开始慢慢丰富。
